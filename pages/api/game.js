@@ -1,5 +1,5 @@
 const response = {
-  'resources':[
+  'levels':[
     [
       ['O','I','E'],
       ['I','I','X'],
@@ -24,10 +24,11 @@ const response = {
       ['I','E'],
       ['E','X']
     ]
-  ]
+  ],
+  'word': 'OIE',
 };
 
 export default (req, res) => {
   res.statusCode = 200;
-  res.json({ response });
+  res.json(response);
 };

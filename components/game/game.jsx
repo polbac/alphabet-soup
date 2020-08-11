@@ -22,27 +22,29 @@ const Letter = styled.div`
     font-size: 40px;
     color: ${({ theme }) => theme.colors.white};
 
-    ${({ active }) => active && `
-        background: black;
+    ${({ active, showAnswers }) => active && showAnswers && `
+        background: ${({ theme }) => theme.colors.secondary};
     `}
 `;
 
 const isActive = (x, y, engineAnswers) => {
-  console.log(engineAnswers[x][y][1]);
-  return engineAnswers[x][y];
+  return false;
+  return engineAnswers[x][y][1];
 };
 
-const Row = ({ letters, showAnswers, engineAnswers, x }) => (<RowContainer>
-  {letters.map((letter, y) => <Letter active={isActive(x, y, engineAnswers)} showAnswers={showAnswers}>
-    {letter}
-  </Letter>)}
-</RowContainer>);
+const Row = ({ letters, showAnswers, engineAnswers, x }) => {
+
+  return (<RowContainer>
+    {letters.map((letter, y) => <Letter active={isActive(x, y, engineAnswers)} showAnswers={showAnswers}>
+      {!showAnswers ? letter : (isActive(x, y, engineAnswers) ? letter : '❌')}
+    </Letter>)}
+  </RowContainer>);
+};
 
 export function Game({ level, showAnswers }) {
   const engine = new GameEngine(level);
-  const engineAnswers = engine.findWord();
-  const [answers, setAnswers] = useState(showAnswers);
-  
+  const engineAnswers = engine.findWords();
+  console.log('engineAnswers', engineAnswers);
   return(<WrapperGame>
     {level.map((row, x) => <Row x={x} engineAnswers={engineAnswers} showAnswers={showAnswers} letters={row}></Row>)}
   </WrapperGame>);

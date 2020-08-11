@@ -17,11 +17,12 @@ const LevelWrapper = styled.span`
 `;
 
 export const LevelSelector = ({ levels }) => {
-  const { resources } = levels.data;
+  
+  console.log('levels', levels);
 
   return (<LevelSelectorWrapper>
     <h2>Seleccioná el nivel que te gustaría jugar:</h2>
-    {resources.map((level, index) => (<Link key={index} href={`level/${index + 1}`}>
+    {levels.map((level, index) => (<Link key={index} href={`level/${index + 1}`}>
       <a><LevelWrapper>{index + 1}</LevelWrapper></a>
     </Link>))}
   </LevelSelectorWrapper>  

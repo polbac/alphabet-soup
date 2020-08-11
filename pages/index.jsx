@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { GameContext } from '../context/game';
 
 export default function Home() {
-  const levels = useContext(GameContext);
+  const context = useContext(GameContext);
   return (
     <div >
       <Head>
@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <LevelSelector levels={levels}/>
+      <LevelSelector levels={context.data.levels}/>
 
       <footer >
         
