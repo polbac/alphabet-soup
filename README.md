@@ -1,4 +1,7 @@
 
 # alphabet-soup
 
-## TODO
+```
+npm install
+npm run start
+```
