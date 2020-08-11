@@ -22,7 +22,7 @@ export const LevelSelector = ({ levels }) => {
 
   return (<LevelSelectorWrapper>
     <h2>Seleccioná el nivel que te gustaría jugar:</h2>
-    {levels.map((level, index) => (<Link key={index} href={`level/${index + 1}`}>
+    {levels.map((level, index) => (<Link key={index} href="/level/[id]" as={`level/${index + 1}`}>
       <a><LevelWrapper>{index + 1}</LevelWrapper></a>
     </Link>))}
   </LevelSelectorWrapper>  
