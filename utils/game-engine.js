@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const RIGHT = [1, 0];
 const LEFT = [-1, 0];
 const TOP = [0, -1];
@@ -19,17 +21,20 @@ const DIRECTIONS = [
 ];
 
 export function findWords(matrix, word) {
-  return DIRECTIONS.map(findDirection(matrix, word));
+  return _.chain(DIRECTIONS)
+    .map(findDirection(matrix, word))
+    .flattenDeep()
+    .uniqBy(c => ([c.x, c.y].join()))
+    .value();
 }
 
-const findDirection = (vectorFinderDirection) => (matrix, word) => {
+const findDirection = (matrix, word) => (vectorFinderDirection) =>{
   const instance = [];
-  const rows = matrix[0].length;
-  const cols = matrix.length;
-
+  const cols = matrix[0].length;
+  const rows = matrix.length;
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      const find = this.findFrom(x, y, vectorFinderDirection, word);
+      const find = findFrom(x, y, vectorFinderDirection, word, matrix);
       if (find) {
         instance.push(find);
       }
@@ -39,12 +44,13 @@ const findDirection = (vectorFinderDirection) => (matrix, word) => {
   return instance;
 };
 
-export function findFrom(x, y, vectorFinderDirection, word) {
+export function findFrom(x, y, vectorFinderDirection, word, matrix) {
   const instance = [];
-
-  if (this.matrix[y][x] !== word[0]) {
+  
+  if (matrix[y][x] !== word[0]) {
     return null;
   }
+
 
   let wordPos = 0;
   let isFinded = true;
@@ -52,6 +58,7 @@ export function findFrom(x, y, vectorFinderDirection, word) {
   let posY = y;
 
   while(isFinded && wordPos < word.length) {
+    
     instance.push({x: posX, y: posY});
 
     wordPos++;
@@ -63,11 +70,11 @@ export function findFrom(x, y, vectorFinderDirection, word) {
     posX += vectorFinderDirection[0];
     posY += vectorFinderDirection[1];
       
-    if (!this.matrix[posY]) {
+    if (!matrix[posY]) {
       return null;
     }
       
-    if (word[wordPos] !== this.matrix[posY][posX]) {
+    if (word[wordPos] !== matrix[posY][posX]) {
       isFinded = false;
     }
   }

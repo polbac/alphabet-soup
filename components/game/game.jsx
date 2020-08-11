@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import GameEngine from '../../engine/game';
 
 const WrapperGame = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 100px;
+    margin: 50px;
 `;
 
 const RowContainer = styled.div`
@@ -22,30 +20,28 @@ const Letter = styled.div`
     font-size: 40px;
     color: ${({ theme }) => theme.colors.white};
 
-    ${({ active, showAnswers }) => active && showAnswers && `
-        background: ${({ theme }) => theme.colors.secondary};
+    ${({ active, showAnswers, theme }) => active && showAnswers && `
+        color: ${theme.colors.black};
     `}
 `;
 
-const isActive = (x, y, engineAnswers) => {
-  return false;
-  return engineAnswers[x][y][1];
+const isActive = (x, y, results) => {
+  if (!results) return false;
+  return results.find(coordinte => coordinte.x === x && coordinte.y === y) !== undefined;
+
 };
 
-const Row = ({ letters, showAnswers, engineAnswers, x }) => {
+const Row = ({ letters, showAnswers, results, y }) => {
 
   return (<RowContainer>
-    {letters.map((letter, y) => <Letter active={isActive(x, y, engineAnswers)} showAnswers={showAnswers}>
-      {!showAnswers ? letter : (isActive(x, y, engineAnswers) ? letter : '❌')}
+    {letters.map((letter, x) => <Letter active={isActive(x, y, results)} showAnswers={showAnswers}>
+      {!showAnswers ? letter : (isActive(x, y, results) ? letter : '❌')}
     </Letter>)}
   </RowContainer>);
 };
 
-export function Game({ level, showAnswers }) {
-  const engine = new GameEngine(level);
-  const engineAnswers = engine.findWords();
-  console.log('engineAnswers', engineAnswers);
+export function Game({ level, showAnswers, results }) {
   return(<WrapperGame>
-    {level.map((row, x) => <Row x={x} engineAnswers={engineAnswers} showAnswers={showAnswers} letters={row}></Row>)}
+    {level.map((row, y) => <Row y={y} results={results} showAnswers={showAnswers} letters={row}></Row>)}
   </WrapperGame>);
 }
