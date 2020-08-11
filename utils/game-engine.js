@@ -20,21 +20,22 @@ const DIRECTIONS = [
   RIGHT_BOTTOM,
 ];
 
-export function findWords(matrix, word) {
-  return _.chain(DIRECTIONS)
+export const findWords = (matrix, word) => 
+  _.chain(DIRECTIONS)
     .map(findDirection(matrix, word))
     .flattenDeep()
     .uniqBy(c => ([c.x, c.y].join()))
     .value();
-}
 
 const findDirection = (matrix, word) => (vectorFinderDirection) =>{
   const instance = [];
   const cols = matrix[0].length;
   const rows = matrix.length;
+
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       const find = findFrom(x, y, vectorFinderDirection, word, matrix);
+
       if (find) {
         instance.push(find);
       }
@@ -44,7 +45,7 @@ const findDirection = (matrix, word) => (vectorFinderDirection) =>{
   return instance;
 };
 
-export function findFrom(x, y, vectorFinderDirection, word, matrix) {
+const findFrom = (x, y, vectorFinderDirection, word, matrix) => {
   const instance = [];
   
   if (matrix[y][x] !== word[0]) {
@@ -78,5 +79,5 @@ export function findFrom(x, y, vectorFinderDirection, word, matrix) {
   }
 
   return null;
-}
+};
   
