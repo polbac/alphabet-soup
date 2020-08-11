@@ -53,11 +53,11 @@ const findFrom = (x, y, vectorFinderDirection, word, matrix) => {
   }
 
   let wordPos = 0;
-  let isFinded = true;
+  let isFound = true;
   let posX = x;
   let posY = y;
 
-  while(isFinded && wordPos < word.length) {   
+  while(isFound && wordPos < word.length) {   
     instance.push({x: posX, y: posY});
 
     wordPos++;
@@ -74,7 +74,7 @@ const findFrom = (x, y, vectorFinderDirection, word, matrix) => {
     }
       
     if (word[wordPos] !== matrix[posY][posX]) {
-      isFinded = false;
+      isFound = false;
     }
   }
 
