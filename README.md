@@ -1,7 +1,7 @@
 
 # 🔠 alphabet-soup
 
-https://alphabet-soup.vercel.app/
+https://alphabet-soup.polbac.vercel.app/
 
 ```
 npm install
