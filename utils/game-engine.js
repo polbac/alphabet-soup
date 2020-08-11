@@ -51,14 +51,12 @@ export function findFrom(x, y, vectorFinderDirection, word, matrix) {
     return null;
   }
 
-
   let wordPos = 0;
   let isFinded = true;
   let posX = x;
   let posY = y;
 
-  while(isFinded && wordPos < word.length) {
-    
+  while(isFinded && wordPos < word.length) {   
     instance.push({x: posX, y: posY});
 
     wordPos++;

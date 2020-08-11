@@ -6,7 +6,7 @@ export function useResults(matrix, word){
 
   const calculateResults = useCallback(() => {
     setResults(findWords(matrix, word));
-  }, []);
+  }, [setResults, findWords]);
 
   return { results, calculateResults };
 }

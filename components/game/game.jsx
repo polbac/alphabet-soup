@@ -27,21 +27,19 @@ const Letter = styled.div`
 
 const isActive = (x, y, results) => {
   if (!results) return false;
-  return results.find(coordinte => coordinte.x === x && coordinte.y === y) !== undefined;
-
+  return results.find(coordinte => coordinte.x === x 
+    && coordinte.y === y
+  ) !== undefined;
 };
 
-const Row = ({ letters, showAnswers, results, y }) => {
-
-  return (<RowContainer>
-    {letters.map((letter, x) => <Letter active={isActive(x, y, results)} showAnswers={showAnswers}>
-      {!showAnswers ? letter : (isActive(x, y, results) ? letter : '❌')}
-    </Letter>)}
-  </RowContainer>);
-};
+const Row = ({ letters, showAnswers, results, y }) => (<RowContainer>
+  {letters.map((letter, x) => <Letter active={isActive(x, y, results)} showAnswers={showAnswers}>
+    {!showAnswers ? letter : (isActive(x, y, results) ? letter : '❌')}
+  </Letter>)}
+</RowContainer>);
 
 export function Game({ level, showAnswers, results }) {
-  return(<WrapperGame>
+  return (<WrapperGame>
     {level.map((row, y) => <Row y={y} results={results} showAnswers={showAnswers} letters={row}></Row>)}
   </WrapperGame>);
 }
